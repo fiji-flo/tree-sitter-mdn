@@ -10,8 +10,17 @@ module.exports = grammar({
     macro_tag: ($) =>
       seq(token.immediate("{{"), $.ident, optional($.args), "}}"),
 
-    text: ($) => token(repeat1(choice(/[^{]/, /\\\{/, /\{[^{]/))),
-
+    text: ($) =>
+      token(
+        repeat1(
+          choice(
+            /[^{]/, // any non-brace, non-backslash
+            /\\\{/, // escaped open brace
+            /\{\{ +\}\}/, // things like `{{ }}` or `{{1`, not a valid ident
+            /\{[^{]/, // single {
+          ),
+        ),
+      ),
     //---------------------------------------------------------------------------
     // Function calls and arguments
     //---------------------------------------------------------------------------
