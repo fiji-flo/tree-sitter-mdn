@@ -14,9 +14,10 @@ module.exports = grammar({
       token(
         repeat1(
           choice(
-            /[^{]/, // any non-brace, non-backslash
+            /[^{]/, // any non-brace
             /\\\{/, // escaped open brace
-            /\{\{ +\}\}/, // things like `{{ }}` or `{{1`, not a valid ident
+            /\{\{ *\}\}/, // {{ }}
+            /\{\{ *[^a-zA-Z_ ][^}]*\}\}/, // {{ <invalid ident> }}
             /\{[^{]/, // single {
           ),
         ),

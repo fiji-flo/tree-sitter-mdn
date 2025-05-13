@@ -68,7 +68,11 @@
             },
             {
               "type": "PATTERN",
-              "value": "\\{\\{ +\\}\\}"
+              "value": "\\{\\{ *\\}\\}"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\{\\{ *[^a-zA-Z_ ][^}]*\\}\\}"
             },
             {
               "type": "PATTERN",
