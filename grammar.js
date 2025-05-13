@@ -32,7 +32,14 @@ module.exports = grammar({
           ),
         ),
       ),
-    _arg: ($) => choice($.string, $.float, $.int, $.boolean),
+    _arg: ($) =>
+      choice(
+        alias(choice('""', "''"), $.none),
+        $.string,
+        $.float,
+        $.int,
+        $.boolean,
+      ),
 
     boolean: ($) => choice("true", "false"),
     none: ($) => prec(1, ","),
